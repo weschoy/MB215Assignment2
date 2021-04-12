@@ -1,0 +1,24 @@
+<style>
+    th, td{
+        padding-right: 1em;
+    }
+</style>
+
+<h1>Orders for Wesley's Pie Shop</h1>
+<form action="." method="post">
+{% csrf_token %}
+    <table>
+        <tr><th>number</th><th>size</th><th>toppings</th><th>drinks</th><th>state</th><th>timestamp</th></tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{order.phone}}</td> 
+            <td>{{order.data.size}}</td> 
+            <td>{{order.data.toppings}}</td> 
+            <td>{{order.data.drinks}}</td> 
+            <td>{{order.data.state}}</td> 
+            <td>{{order.data.timestamp}}</td>
+            <td><button type="submit" name="delete" value="{{order.id}}">X</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
