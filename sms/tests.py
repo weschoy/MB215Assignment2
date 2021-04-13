@@ -1,5 +1,6 @@
 from django.test import TestCase
 import sqlite3
+import datetime
 
 # Create your tests here.
 
@@ -70,6 +71,7 @@ class SMSTests(TestCase):
         self.assertEqual(aReturn[3], "The price is $11", "price for the order")
         self.assertEqual(oOrder.getState(), "DONE", "order state should be DONE")
         self.assertEqual(oOrder.getDrinks(), None, "no drinks were entered")
+    
     def test_drinks(self):
         oOrder = Order(phone = '123-456-7890', data={"state":"SIZE"})
         aReturn = oOrder.handleInput("small")
@@ -82,6 +84,10 @@ class SMSTests(TestCase):
         self.assertEqual(aReturn[4], "The price is $13", "price for the order")
         self.assertEqual(oOrder.getState(), "DONE", "order state should be DONE")
         self.assertEqual(oOrder.getDrinks(), "dr.pepper", "one drinks were entered")
+
+    def test_timefield(self):
+        oOrder = Order(phone = '123-456-7890', data={"state":"DONE"})
+        self.assertEqual(oOrder.getTime(), datetime.datetime.now().strftime('%H:%M:%S'), "Time of the order")
  
         
     

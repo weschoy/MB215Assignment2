@@ -1,5 +1,7 @@
 from django.test import TestCase
 from sms.models import Order
+from django.contrib.auth import get_user_model
+import datetime
 
 # Create your tests here.
 
@@ -13,8 +15,6 @@ class OrderListViewTest(TestCase):
                 phone=f'{order_id}',
                 data='{"STATE":"WELCOMING"}',
             )
-         
-
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
@@ -29,6 +29,18 @@ class OrderListViewTest(TestCase):
         aOrders = response.context['orders']
         for order in aOrders:
             self.assertTrue(order.phone !=None, "has phone number")
-        
 
-        
+
+class LoginTest(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+
+    def test_secure_page(self):
+        User = get_user_model()
+        self.client.login(username='temporary', password='temporary')
+        response = self.client.get('/manufacturers/', follow=True)
+        user = User.objects.get(username='temporary')
+
+
+

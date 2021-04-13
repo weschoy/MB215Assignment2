@@ -60,8 +60,8 @@ class Order(models.Model):
                 pass
             aReturn.append("Please pick up in 20 minutes")
             aReturn.append("The price is $"+str(self.data["price"]))
-            self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')           
             self.data["state"]="DONE"
+            self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')           
         return aReturn
     def isDone(self):
         if self.data["state"]=="DONE":
@@ -81,7 +81,9 @@ class Order(models.Model):
             return self.data["drinks"]    
         except:
             return None
-
+    def getTime(self):
+        self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')      
+        return self.data["timestamp"]
     class Meta:
         # this sets up a SQL index on the phone field
         indexes = [models.Index(fields=['phone'])]
