@@ -30,7 +30,6 @@ class Order(models.Model):
             aReturn.append("Please enter a list with commas")
             aReturn.append("+$2 per each topping")
             self.data["state"]="TOPPINGS"
-
         elif sState=="TOPPINGS":
             self.data["toppings"]=sInput.lower()
             nToppings=self.data["toppings"].split(",")
@@ -46,22 +45,18 @@ class Order(models.Model):
                 self.data["drinks"]=sInput.lower()
                 nDrinks=self.data["drinks"].split(",")
                 for x in nDrinks:
-                    self.data["price"]+=2
-
-                
-              
-            
+                    self.data["price"]+=2            
             aReturn.append("Thank you for your order")
             aReturn.append(self.data["size"]+" pie with "+self.data["toppings"])
-
             try:
                 aReturn.append(self.data["drinks"])
             except:
                 pass
             aReturn.append("Please pick up in 20 minutes")
-            aReturn.append("The price is $"+str(self.data["price"]))
-            self.data["state"]="DONE"
-            self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')           
+            aReturn.append("The price is $"+str(self.data["price"]))  
+            self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')  
+            aReturn.append("Time of order: "+str(self.data["timestamp"]))
+            self.data["state"]="DONE"                                  
         return aReturn
     def isDone(self):
         if self.data["state"]=="DONE":
@@ -82,7 +77,6 @@ class Order(models.Model):
         except:
             return None
     def getTime(self):
-        self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')      
         return self.data["timestamp"]
     class Meta:
         # this sets up a SQL index on the phone field

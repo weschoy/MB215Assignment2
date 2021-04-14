@@ -1,7 +1,7 @@
 from django.test import TestCase
 from sms.models import Order
-from django.contrib.auth import get_user_model
-import datetime
+from django.contrib.auth.models import User
+from django.test import Client
 
 # Create your tests here.
 
@@ -32,15 +32,19 @@ class OrderListViewTest(TestCase):
 
 
 class LoginTest(TestCase):
-    def setUp(self):
-        User = get_user_model()
-        user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+    def test_login(self):
+        self.username = 'testuser' 
+        self.password = 'testpassword'
+        user = User.objects.create(username=self.username)
+        user.set_password(self.password)
+        user.save()
+        c=Client()
+        logged_in=c.login(username='testuser',password='testpassword')
+        self.assertTrue(logged_in) 
 
-    def test_secure_page(self):
-        User = get_user_model()
-        self.client.login(username='temporary', password='temporary')
-        response = self.client.get('/manufacturers/', follow=True)
-        user = User.objects.get(username='temporary')
+
+    
+    
 
 
 
