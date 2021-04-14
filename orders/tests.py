@@ -2,6 +2,7 @@ from django.test import TestCase
 from sms.models import Order
 from django.contrib.auth.models import User
 from django.test import Client
+import datetime
 
 # Create your tests here.
 
@@ -31,6 +32,25 @@ class OrderListViewTest(TestCase):
             self.assertTrue(order.phone !=None, "has phone number")
 
 
+class chronologicalOrderTest(TestCase):
+    def test_view_orders_in_order(self):
+        response = self.client.get('/')
+        login=self.client.login(username='testuser',password='testpassword')
+        self.assertEqual(str(response.context['user']), 'AnonymousUser')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('orders' in response.context)
+    def order1(self):
+        earliest_order=datetime.datetime.now().strftime('%H:%M:%S') 
+    def order2(self):
+        latest_order=datetime.datetime().strftime('%H:%M:%S') 
+    def order1BeforeOrder2(self):
+        order1()
+        order2()
+        for meal in response.context['orders']:
+            self.assertTrue(earliest_order<latest_order)
+
+
+
 class LoginTest(TestCase):
     def test_login(self):
         self.username = 'testuser' 
@@ -42,6 +62,8 @@ class LoginTest(TestCase):
         logged_in=c.login(username='testuser',password='testpassword')
         self.assertTrue(logged_in) 
 
+
+        
 
     
     

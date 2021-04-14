@@ -54,9 +54,9 @@ class Order(models.Model):
                 pass
             aReturn.append("Please pick up in 20 minutes")
             aReturn.append("The price is $"+str(self.data["price"]))  
+            self.data["state"]="DONE"       
             self.data["timestamp"]=datetime.datetime.now().strftime('%H:%M:%S')  
-            aReturn.append("Time of order: "+str(self.data["timestamp"]))
-            self.data["state"]="DONE"                                  
+            aReturn.append("Time of order: "+str(self.data["timestamp"]))                           
         return aReturn
     def isDone(self):
         if self.data["state"]=="DONE":
