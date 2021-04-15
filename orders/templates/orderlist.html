@@ -9,7 +9,7 @@
     <form action="." method="post">
     {% csrf_token %}
         <table>
-            <tr><th>number</th><th>size</th><th>toppings</th><th>drinks</th><th>state</th><th>timestamp</th></tr>
+            <tr><th>number</th><th>size</th><th>toppings</th><th>drinks</th><th>state</th><th>date and time</th></tr>
             {% for order in orders %}
             <tr>
                 <td>{{order.phone}}</td> 

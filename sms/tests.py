@@ -95,10 +95,10 @@ class SMSTests(TestCase):
         self.assertEqual(aReturn[2], "dr.pepper", "drink option")
         self.assertEqual(aReturn[3], "Please pick up in 20 minutes", "drinks message line 2")
         self.assertEqual(aReturn[4], "The price is $13", "price for the order")
-        self.assertEqual(aReturn[5],"Time of order: "+datetime.datetime.now().strftime('%H:%M:%S'), "time message line 1")
+        self.assertEqual(aReturn[5],"Time of order: "+datetime.datetime.now().strftime('%m/%d/%y, %H:%M:%S'), "time message line 1")
         self.assertEqual(oOrder.getState(), "DONE", "order state should be DONE")
         self.assertEqual(oOrder.getDrinks(), "dr.pepper", "one drinks were entered")
-        self.assertEqual(oOrder.getTime(), datetime.datetime.now().strftime('%H:%M:%S'), "Time of the order")
+        self.assertEqual(oOrder.getTime(), datetime.datetime.now().strftime('%m/%d/%y, %H:%M:%S'), "Time of the order")
  
         
     
