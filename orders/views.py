@@ -6,6 +6,10 @@ from django.views.generic import TemplateView
 
 from sms.models import Order
 
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views import generic
+
 
 class OrderView(TemplateView):
     template_name = "orderlist.html"
@@ -23,3 +27,6 @@ class OrderView(TemplateView):
         context = self.getContext(request, *args, **kwargs)
         return self.render_to_response(context)
 
+
+
+    
