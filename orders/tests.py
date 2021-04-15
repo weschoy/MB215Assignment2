@@ -44,23 +44,19 @@ class chronologicalOrderTest(TestCase):
     def order2(self):
         latest_order=datetime.datetime().strftime('%H:%M:%S') 
     def order1BeforeOrder2(self):
-        order1()
-        order2()
         for meal in response.context['orders']:
-            self.assertTrue(earliest_order<latest_order)
-
-
-
+            self.assertTrue(order1()<order2())
+            
 class LoginTest(TestCase):
     def test_login(self):
-        self.username = 'testuser' 
-        self.password = 'testpassword'
-        user = User.objects.create(username=self.username)
-        user.set_password(self.password)
-        user.save()
         c=Client()
-        logged_in=c.login(username='testuser',password='testpassword')
-        self.assertTrue(logged_in) 
+        response=c.post('/accounts/login/',{'username':'john','password':'smith'})
+        self.assertEqual(response.status_code, 200)
+        response=c.get('/')
+        response.content
+
+    
+        
 
 
         
