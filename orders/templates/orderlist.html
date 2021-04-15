@@ -25,8 +25,9 @@
     </form>
     <p><a href="{% url 'logout' %}">Log Out</a></p>
     {% else %}
-    <p>You are not logged in</p>
-    <a href="{% url 'login' %}">Log In</a>
+    <p>Log in to see orders for Wesley's Pie Shop</p>
+    <tr><a href="{% url 'login' %}">Log In</a></tr><br><br>
+    <th>Don't have an account?</th>
     <a href="{% url 'signup' %}">Sign Up</a>
   {% endif %}
   {% endblock %}
